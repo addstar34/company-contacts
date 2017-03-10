@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Contacts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Surname</th>
+      <th>Company</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.first_name %></td>
+        <td><%= contact.surname %></td>
+        <td><%= contact.company.name %></td>
+        <td><%= link_to 'Show', company_contact_path(@company, contact) %></td>
+        <td><%= link_to 'Edit', edit_company_contact_path(@company, contact) %></td>
+        <td><%= link_to 'Destroy', company_contact_path(@company, contact), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Contact', new_company_contact_path(@company) %>
