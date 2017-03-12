@@ -2,11 +2,13 @@ class RelationshipsController < ApplicationController
   before_action :set_company_and_contact, only: [:index, :new, :create, :destroy]
 
   def index
-    @relationships = Relationship.where("contact_id = :contact OR relation_id = :contact", contact: @contact)
+    @relationships = @contact.relationships
   end
 
   def new
     @relationship = @contact.relationships.build
+    existing_relations = @contact.relationships.pluck(:relation_id) << @contact.id
+    @available_contacts = @company.contacts.where.not(id: existing_relations)
   end
 
   def create
@@ -25,8 +27,7 @@ class RelationshipsController < ApplicationController
   end
 
   def destroy
-    relationships = Relationship.where("contact_id = :contact OR relation_id = :contact", contact: @contact)
-    @relationship = relationships.find(params[:id])
+    @relationship = @contact.relationships.find(params[:id])
 
     @relationship.destroy
     respond_to do |format|

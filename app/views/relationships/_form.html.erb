@@ -12,8 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :relation_id %>
-    <%= f.number_field :relation_id %>
+    <%= f.collection_select(:relation_id, @available_contacts, :id, :full_name) %>
   </div>
 
   <div class="actions">

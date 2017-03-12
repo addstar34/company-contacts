@@ -14,8 +14,8 @@
   <tbody>
     <% @relationships.each do |relationship| %>
       <tr>
-        <td><%= relationship.contact_id %></td>
-        <td><%= relationship.relation_id %></td>
+        <td><%= relationship.relation.full_name %></td>
+
         <td><%= link_to 'Destroy', company_contact_relationship_path(@company, @contact, relationship), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
