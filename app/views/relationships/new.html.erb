@@ -1,5 +1,8 @@
 <h1>New Relationship</h1>
+<h2><%= @contact.full_name %></h2>
+<h2>Company: <%= link_to @company.name, company_path(@company) %></h2>
+<div><%= link_to 'Back', company_contact_relationships_path(@company, @contact) %></div>
+
+<br>
 
 <%= render 'form', relationship: @relationship %>
-<%= @existing_relations %>
-<%= link_to 'Back', company_contact_relationships_path(@company, @contact) %>
