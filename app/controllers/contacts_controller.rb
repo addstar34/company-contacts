@@ -57,8 +57,8 @@ class ContactsController < ApplicationController
   private
 
     def set_contact
-      @company = Company.find(params[:company_id])
-      @contact = @company.contacts.find(params[:id])
+      @company = Company.includes(:contacts).where(contacts: {id: params[:id]}).find(params[:company_id])
+      @contact = @company.contacts.last
     end
 
     def contact_params
