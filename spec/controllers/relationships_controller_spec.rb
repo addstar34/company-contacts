@@ -35,10 +35,10 @@ RSpec.describe RelationshipsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Relationship" do
+      it "creates a new Relationship including the inverse relationship" do
         expect {
           post :create, params: { relationship: valid_attributes, company_id: company.id, contact_id: contact.id }, session: valid_session
-        }.to change(Relationship, :count).by(1)
+        }.to change(Relationship, :count).by(2)
       end
 
       it "assigns a newly created relationship as @relationship" do
@@ -73,18 +73,11 @@ RSpec.describe RelationshipsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested relationship when made by the contact" do
+    it "destroys the requested relationship and the inverse relationship" do
       relationship = contact.relationships.create! valid_attributes
       expect {
         delete :destroy, params: {id: relationship.to_param, company_id: company.id, contact_id: contact.id}, session: valid_session
-      }.to change(Relationship, :count).by(-1)
-    end
-
-    it "destroys the requested relationship when made by another contact (inverse)" do
-      relationship = contact.relationships.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: relationship.to_param, company_id: company_with_contacts.id, contact_id: relation.id}, session: valid_session
-      }.to change(Relationship, :count).by(-1)
+      }.to change(Relationship, :count).by(-2)
     end
 
     it "redirects to the relationships list" do
