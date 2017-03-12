@@ -1,9 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @company.name %>
-</p>
+<h1><%= @company.name %></h1>
+<div>
+  <%= link_to 'Back', companies_path %> |
+  <%= link_to 'Edit', edit_company_path(@company) %>
+</div>
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+<br>
+
+<h2>Recent Contacts</h2>
+<div>
+  <%= link_to 'New Contact', new_company_contact_path(@company) %> |
+  <%= link_to 'All Contacts', company_contacts_path(@company) %>
+</div>
+
+<br>
+<% if @contacts.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>First name</th>
+        <th>Surname</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @contacts.each do |contact| %>
+        <tr>
+          <td><%= contact.first_name %></td>
+          <td><%= contact.surname %></td>
+          <td><%= link_to 'Profile', company_contact_path(@company, contact) %></td>
+          <td><%= link_to 'Relationships', company_contact_relationships_path(@company, contact) %></td>
+          <td><%= link_to 'Edit', edit_company_contact_path(@company, contact) %></td>
+          <td><%= link_to 'Destroy', company_contact_path(@company, contact), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

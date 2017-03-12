@@ -6,6 +6,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
+    @contacts = @company.contacts.order(created_at: :desc).limit(3)
   end
 
   def new
@@ -50,7 +51,7 @@ class CompaniesController < ApplicationController
   end
 
   private
-  
+
     def set_company
       @company = Company.find(params[:id])
     end

@@ -1,6 +1,10 @@
-<h1>Editing Contact</h1>
+<h1>Edit <%= @contact.full_name %></h1>
+<h2>Company: <%= link_to @contact.company.name, company_path(@company) %></h2>
+<div>
+  <%= link_to 'Back', company_contacts_path(@company) %> |
+  <%= link_to 'Show', company_contact_path(@company, @contact) %>
+</div>
+
+<br>
 
 <%= render 'form', contact: @contact %>
-
-<%= link_to 'Show', company_contact_path(@contact) %> |
-<%= link_to 'Back', company_contacts_path(@company) %>

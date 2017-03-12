@@ -1,19 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @contact.first_name %>
-</p>
-
-<p>
-  <strong>Surname:</strong>
-  <%= @contact.surname %>
-</p>
-
-<p>
-  <strong>Company:</strong>
-  <%= @contact.company.name %>
-</p>
-
-<%= link_to 'Edit', edit_company_contact_path(@company, @contact) %> |
-<%= link_to 'Back', company_contacts_path(@company) %>
+<h1><%= @contact.full_name %></h1>
+<h2>Company: <%= link_to @contact.company.name, company_path(@company) %></h2>
+<div>
+  <%= link_to 'Back', company_contacts_path(@company) %> |
+  <%= link_to 'Edit', edit_company_contact_path(@company, @contact) %> |
+  <%= link_to 'Add Relationship', new_company_contact_relationship_path(@company, @contact) %>
+</div>

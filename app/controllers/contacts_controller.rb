@@ -6,8 +6,8 @@ class ContactsController < ApplicationController
     @contacts = @company.contacts.all
   end
 
-
   def show
+    @relationships = @contact.relationships
   end
 
   def new
@@ -55,7 +55,7 @@ class ContactsController < ApplicationController
   end
 
   private
-  
+
     def set_contact
       @company = Company.find(params[:company_id])
       @contact = @company.contacts.find(params[:id])

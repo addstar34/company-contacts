@@ -25,6 +25,13 @@ RSpec.describe CompaniesController, type: :controller do
       get :show, params: {id: company.to_param}, session: valid_session
       expect(assigns(:company)).to eq(company)
     end
+
+    it "assigns the last 3 created contacts to @contacts" do
+      company = FactoryGirl.create(:company_with_contacts, contacts_count: 5)
+      contacts = company.contacts.order(created_at: :desc).limit(3)
+      get :show, params: {id: company.to_param}, session: valid_session
+      expect(assigns(:contacts)).to eq(contacts)
+    end
   end
 
   describe "GET #new" do
